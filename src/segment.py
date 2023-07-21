@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 def find_pupil(image):
     if peak_detected(image):
@@ -122,15 +123,14 @@ def draw_ellipsis(image: np.ndarray, ellipsis):
     plt.show()
 
 
-if __name__ == "__main__":
-    # Testing
-    image = cv2.imread(f"{DATASET_DIR}/{subfolder}/{subfolder}_frames/frame_1.png", 0) # Read as grayscale
+def process_image(image_path: str):
+    image = cv2.imread(image_path)
 
     if find_pupil(image) is not None:
         ellipsis, center = find_pupil(image)
         draw_ellipsis(image, ellipsis)
-        print(center)
+        plt.title(f"Pupil Center : {center}")
     else:
-        plt.imshow(image, cmap="gray")
         plt.title("No Pupil Detected")
-        plt.show()
+    
+    plt.savefig(f"../plots/{Path(image_path).stem}.png")
