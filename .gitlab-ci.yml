@@ -1,5 +1,5 @@
 # The Docker image that will be used to build your app
-image: pupil-detector
+image: node.latest
 pages:
   script:
     - echo "This site will be deployed to $CI_PAGES_URL"
