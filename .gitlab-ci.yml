@@ -1,6 +1,7 @@
 # The Docker image that will be used to build your app
-image: node:latest
+image: busybox
 pages:
+  stages: deploy
   script:
     - echo "This site will be deployed to $CI_PAGES_URL"
   artifacts:
