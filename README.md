@@ -16,6 +16,12 @@ pip3 install -r requirements.txt
 python cli_runner.py --image_path <path_to_image>
 ```
 > Note: omitting the `--image_path` argument will run the program on a default image.
+* Evaluate the model over a folder of images:
+```bash
+python cli_runner.py --folder_path <path_to_folder>
+```
+> Note: omitting the `--folder_path` argument will run the program on a default folder.
+
 * Evaluate the model over a dataset:
 ```bash
 python cli_runner.py --dataset_path <path_to_dataset>

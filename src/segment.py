@@ -4,10 +4,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+
 def find_pupil(image):
     if peak_detected(image):
         edges = edge_pupil_center_detection(image)
-        if (edges is not None):
+        if edges is not None:
             ellipsis, center = edges
             return ellipsis, center
         else:
@@ -30,20 +31,23 @@ def peak_detected(image, th=200, mu=10):
     for i in range(256):
         if hist[i] > th and hist[i] > mu * avg_intensity:
             return True
-    
+
     return False
+
 
 # Returns the ellipsis that best fits the pupil with its center, or None if no pupil is found
 def edge_pupil_center_detection(image):
     # Apply Gaussian filtering for smoothing
     smoothed = cv2.GaussianBlur(image, (5, 5), 0)
-    
+
     # Apply Canny edge detection
-    edges = cv2.Canny(smoothed, 50, 100) # Adjust the threshold as needed
+    edges = cv2.Canny(smoothed, 50, 100)  # Adjust the threshold as needed
 
     # Find the contours of the edges
-    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    
+    contours, _ = cv2.findContours(
+        edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+    )
+
     # Find the ellipses that best fit the contours
     ellipses = []
     for contour in contours:
@@ -52,7 +56,7 @@ def edge_pupil_center_detection(image):
 
             # Unpack the ellipse parameters
             (center_x, center_y), (major_axis, minor_axis), angle = ellipse
-            
+
             # Convert the parameters to integer values
             center = (int(center_x), int(center_y))
             axes = (int(major_axis / 2), int(minor_axis / 2))
@@ -60,14 +64,14 @@ def edge_pupil_center_detection(image):
             # Calculate the size of the square based on a scale factor
             scale_factor = 0.4
             square_size = int(min(axes) * scale_factor)
-            
+
             # Define the coordinates of the square
             x = center[0] - square_size // 2
             y = center[1] - square_size // 2
-            
+
             # Extract the square region of interest (ROI) from the image
-            roi = image[y:y+square_size, x:x+square_size]
-            
+            roi = image[y : y + square_size, x : x + square_size]
+
             # Calculate the percentage of black pixels within the ROI
             black_pixels = np.sum(roi < 45)
             total_pixels = roi.size
@@ -86,6 +90,7 @@ def edge_pupil_center_detection(image):
     else:
         return find_largest_ellipsis(ellipses)
 
+
 # Returns the largest ellipse with its center
 def find_largest_ellipsis(ellipses):
     # Initialize variables for tracking the largest ellipse
@@ -96,7 +101,7 @@ def find_largest_ellipsis(ellipses):
     for ellipse in ellipses:
         # Unpack the ellipse parameters
         (center_x, center_y), (major_axis, minor_axis), angle = ellipse
-        
+
         # Convert the parameters to integer values
         c = (int(center_x), int(center_y))
         axes = (int(major_axis / 2), int(minor_axis / 2))
@@ -112,6 +117,7 @@ def find_largest_ellipsis(ellipses):
 
     return largest_ellipse, center
 
+
 # Draw the ellipsis on the image
 def draw_ellipsis(image: np.ndarray, ellipsis):
     if ellipsis is not None:
@@ -119,14 +125,33 @@ def draw_ellipsis(image: np.ndarray, ellipsis):
         cv2.ellipse(image, ellipsis, (255, 0, 0), 2)
     return image
 
+
 def process_image(plots_dir: str, image_path: str):
     image = cv2.imread(image_path, 0)
 
     if find_pupil(image) is not None:
         ellipsis, center = find_pupil(image)
         image = draw_ellipsis(image, ellipsis)
-        plt.title(f"Pupil Center : {center}")
+        msg = f"pupil center : {center}"
     else:
-        plt.title("No Pupil Detected")
-    
+        msg = "no pupil detected"
+
+    bottom_left_coord = (10, image.shape[0] - 10)
+    image = cv2.putText(
+        image,
+        msg,
+        bottom_left_coord,
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.5,
+        (0, 255, 0),
+        1,
+        cv2.LINE_AA,
+    )
     plt.imsave(f"{plots_dir}/{Path(image_path).stem}.png", image)
+
+def ExCuSe(img: str):
+    pupil = find_pupil(img)
+    if pupil is None:
+        return None
+    _, center = pupil
+    return center
