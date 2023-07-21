@@ -117,20 +117,16 @@ def draw_ellipsis(image: np.ndarray, ellipsis):
     if ellipsis is not None:
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
         cv2.ellipse(image, ellipsis, (255, 0, 0), 2)
+    return image
 
-    plt.imshow(image) 
-    plt.title("Detected Pupil")
-    plt.show()
-
-
-def process_image(image_path: str):
-    image = cv2.imread(image_path)
+def process_image(plots_dir: str, image_path: str):
+    image = cv2.imread(image_path, 0)
 
     if find_pupil(image) is not None:
         ellipsis, center = find_pupil(image)
-        draw_ellipsis(image, ellipsis)
+        image = draw_ellipsis(image, ellipsis)
         plt.title(f"Pupil Center : {center}")
     else:
         plt.title("No Pupil Detected")
     
-    plt.savefig(f"../plots/{Path(image_path).stem}.png")
+    plt.imsave(f"{plots_dir}/{Path(image_path).stem}.png", image)

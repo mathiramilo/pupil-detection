@@ -10,8 +10,8 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import FuncFormatter
 
-from dummy import dummy_method
-from segment import find_pupil
+from .dummy import dummy_method
+from .segment import find_pupil
 
 def plot_cumulative_error(algorithm_errors : list[np.ndarray],
                           titles : list[str],
