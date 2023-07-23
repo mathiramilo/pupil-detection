@@ -2,9 +2,11 @@ from argparse import ArgumentParser
 from src import segment
 from src import test
 
+from src import pupilCore
+
 # black -t py39 -l 80 src/*.py cli_runner.py
 
-DATASET_DIR = "dataset/LPW_frames/LPW"
+DATASET_DIR = "dataset/LPW_frames_symlink/LPW"
 PLOTS_DIR = "plots"
 
 if __name__ == "__main__":
@@ -15,7 +17,9 @@ if __name__ == "__main__":
         nargs="?",
         const=f"{DATASET_DIR}/1/1_frames/frame_1.png",
     )
-    parser.add_argument("--folder_path", type=str, nargs="?", const=f"{DATASET_DIR}/1")
+    parser.add_argument(
+        "--folder_path", type=str, nargs="?", const=f"{DATASET_DIR}/1"
+    )
     parser.add_argument(
         "--dataset_path", type=str, nargs="?", const=DATASET_DIR
     )

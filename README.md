@@ -20,7 +20,7 @@ python cli_runner.py --image_path <path_to_image>
 ```bash
 python cli_runner.py --folder_path <path_to_folder>
 ```
-> Note: omitting the `--folder_path` argument will run the program on a default folder.
+> Note: omitting the `--folder_path` argument will run the program on a default folder. 
 
 * Evaluate the model over a dataset:
 ```bash
@@ -31,13 +31,14 @@ python cli_runner.py --dataset_path <path_to_dataset>
 
 
 ## Dataset 
-D. W. Hansen and Q. Ji, "In the Eye of the Beholder: A Survey of Models for Eyes and Gaze," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 32, no. 3, pp. 478-500, March 2010, doi: 10.1109/TPAMI.2009.30.
 - [Dataset Website](https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw)
 - [Paper Link](https://arxiv.org/pdf/1511.05768.pdf)
 
 ## Results
 
 ## References
+# Review of State of the Art Eye Gaze Estimation Methods
+D. W. Hansen and Q. Ji, "In the Eye of the Beholder: A Survey of Models for Eyes and Gaze," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 32, no. 3, pp. 478-500, March 2010, doi: 10.1109/TPAMI.2009.30.
 ### Primary Source
 This paper served as our primary source, aiming not only to reference its findings but also to faithfully reproduce the results it achieved.
-- [Citation]()
+- [Citation](https://www.hci.uni-tuebingen.de/assets/pdf/publications/WTCKWE092015.pdf)
