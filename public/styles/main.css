@@ -45,6 +45,8 @@
 .header nav {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 2em;
   margin-top: 2.2em;
 }
@@ -85,21 +87,39 @@ main {
   font-size: 1.5em;
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 1em;
+  margin-bottom: 1.2em;
 }
 
 .subtitle {
   font-size: 1.2em;
   font-weight: 500;
   color: var(--color-text);
-  margin-bottom: 0.9em;
+  margin-bottom: 1em;
+  margin-top: 2.4em;
 }
 
 .text {
   font-size: 1em;
   font-weight: 300;
+  text-align: justify;
   color: var(--color-text);
   margin-bottom: 1.5em;
+}
+
+.img {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.img span {
+  font-size: 0.8em;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  margin-top: 0.5em;
+  display: block;
+  text-align: center;
 }
 
 .separator {

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pupil Detector | Proyecto TIMAG 2023</title>
+    <link rel="shortcut icon" href="../images/eye-logo.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="../styles/main.css" />
   </head>
@@ -23,7 +24,7 @@
 
         <nav>
           <a href="../index.html">Introducción</a>
-          <a href="#" class="active">Métodos</a>
+          <a href="#" class="active">Método</a>
           <a href="./datasets.html">Dataset</a>
           <a href="./experiments.html">Experimentos</a>
           <a href="./conclusions.html">Conclusiones</a>
@@ -32,9 +33,49 @@
     </header>
 
     <main>
-      <h2 class="title">Métodos</h2>
+      <h2 class="title">2. Método</h2>
 
-      <p class="text">La deteccion de la pupila en el ojo humano tiene numerosas aplicaciones en el mundo real.</p>
+      <p class="text">
+        Para abordar el desafío de detectar la pupila en imágenes de ojos, nos embarcamos en un exhaustivo proceso de
+        investigación y revisión de informes científicos. Durante esta etapa, exploramos diversos papers y enfoques
+        propuestos por expertos en el campo de la detección de pupila. Entre los estudios revisados, nos encontramos con
+        el trabajo titulado "ExCuSe: Robust Pupil Detection in Real-World Scenarios", que demostró ser altamente
+        relevante y prometedor para nuestro objetivo.
+      </p>
+
+      <p class="text">
+        El paper de ExCuSe presenta un método robusto y eficiente para detectar la pupila en escenarios del mundo real.
+        Su enfoque basado en características y morfología matemática se destacó por su capacidad para abordar los
+        desafíos de variaciones de iluminación, ruido y complejidades anatómicas presentes en las imágenes de ojos. La
+        combinación de múltiples técnicas y la exhaustiva validación experimental ofrecieron resultados prometedores que
+        inspiraron nuestro propio enfoque.
+      </p>
+
+      <p class="text">
+        Asimismo, también revisamos la investigación titulada "In the Eye of the Beholder", que proporcionó una visión
+        panorámica de los distintos métodos disponibles para resolver el problema de detección de pupila. Esta revisión
+        nos permitió comprender las fortalezas y limitaciones de las diversas aproximaciones.
+      </p>
+
+      <p class="text">
+        En vista de la solidez del enfoque propuesto por ExCuSe y la comprensión más amplia obtenida a través de la
+        revisión de "In the Eye of the Beholder", tomamos la decisión de basarnos en el método propuesto por ExCuSe como
+        nuestro punto de partida para desarrollar nuestra propia solución de detección de pupila. Aprovechamos los
+        conceptos y técnicas clave presentados en el paper como base para adaptar y personalizar nuestro enfoque para
+        satisfacer las necesidades específicas de nuestro proyecto.
+      </p>
+
+      <h3 class="subtitle">2.1. Solución Propuesta</h3>
+
+      <p class="text">
+        Como ya fue mencionado anteriormente, nuestra solución esta fuertemente basada en el algoritmo de ExCuSe: Robust
+        Pupil Detection in Real-World Scenarios
+      </p>
+
+      <div class="img">
+        <img src="../images/decision-flow.png" alt="Decision Flow" />
+        <span>Flujo de decision</span>
+      </div>
 
       <hr class="separator" />
 
