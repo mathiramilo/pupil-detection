@@ -2,3 +2,4 @@ __pycache__
 .vscode/
 venv/
 dataset/LPW_frames_symlink
+dataset/LPW_frames/LPW/*
