@@ -69,13 +69,156 @@
 
       <p class="text">
         Como ya fue mencionado anteriormente, nuestra solución esta fuertemente basada en el algoritmo de ExCuSe: Robust
-        Pupil Detection in Real-World Scenarios
+        Pupil Detection in Real-World Scenarios. Sin embargo, nuestro enfoque presenta algunas diferencias. A
+        continuación, se presenta el diagrama de flujo de nuestro método.
       </p>
 
       <div class="img">
-        <img src="../images/decision-flow.png" alt="Decision Flow" />
-        <span>Flujo de decision</span>
+        <img src="../images/decision-flow.jpg" alt="Decision Flow" />
+        <span>Diagrama de flujo</span>
       </div>
+
+      <p class="text">
+        Como se puede observar, nuestro algoritmo recibe como entrada una imagen de 8 bits (sus pixeles tienen valores
+        entre 0 y 255) en escala de grises. El primer paso es de procesamiento y consiste en normalizar la imagen y
+        analisar el histograma.
+      </p>
+
+      <h3 class="subsubtitle">2.1.1. Normalización y analisis de histograma</h3>
+
+      <p class="text">
+        Con la imagen normalizada se calcula el histograma utilizando la funcion
+        <code class="code">cv2.calcHist</code> y luego se analizan sus bins para determinar la presencia de un pico. Si
+        se detecta un pico, se procede a la etapa de detección de bordes. En caso contrario, se procede a la etapa de
+        detección de pupila mediante uso de la heurística.
+      </p>
+
+      <div class="code-block">
+        <pre>
+def peak_detected(image, th=200, mu=10):
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+    avg_intensity = np.mean(image)
+    for i in range(256):
+        if hist[i] > th and hist[i] > mu * avg_intensity:
+            return True
+    return False</pre
+        >
+      </div>
+
+      <div class="img2">
+        <img src="../images/paso-1.png" alt="Paso 1" />
+      </div>
+
+      <h3 class="subsubtitle">2.1.2. Detección del centro de la pupila basado en detección de bordes</h3>
+
+      <p class="text">
+        Dado que se detecto un pico en el histograma, lo primero que se realiza es aplicarle un filtro gaussiano a la
+        imagen con la función <code class="code">cv2.GaussianBlur</code>. Luego, utilizamos la función
+        <code class="code">cv2.Canny</code> para detectar los bordes de la imagen y hallamos los contornos de los bordes
+        con la función <code class="code">cv2.findContours</code>.
+      </p>
+
+      <div class="code-block">
+        <pre>
+smoothed = cv2.GaussianBlur(image, (5, 5), 0)
+edges = cv2.Canny(smoothed, 50, 100)
+contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)</pre
+        >
+      </div>
+
+      <div class="img3">
+        <img src="../images/paso-2.png" alt="Paso 2" />
+      </div>
+
+      <p class="text">
+        Una vez tenemos los contornos, el siguiente paso es encontrar los elipses que mejor se adapten a los contornos y
+        los filtramos tomando como región de interés (ROI) un cuadrado desde el centro de la elipse y verificando que el
+        porcentaje de pixeles oscuros dentro de la región de interés sea mayor al 90% (consideramos que la pupila es
+        siempre oscura).
+      </p>
+
+      <div class="code-block">
+        <pre>
+ellipses = []
+for contour in contours:
+    if len(contour) >= 30:
+        ellipse = cv2.fitEllipse(contour)
+
+        # Unpack the ellipse parameters
+        (center_x, center_y), (major_axis, minor_axis), angle = ellipse
+        
+        # Convert the parameters to integer values
+        center = (int(center_x), int(center_y))
+        axes = (int(major_axis / 2), int(minor_axis / 2))
+
+        # Calculate the size of the square based on a scale factor
+        scale_factor = 0.4
+        square_size = int(min(axes) * scale_factor)
+        
+        # Define the coordinates of the square
+        x = center[0] - square_size // 2
+        y = center[1] - square_size // 2
+        
+        # Extract the square region of interest (ROI) from the image
+        roi = image[y:y+square_size, x:x+square_size]
+        
+        # Calculate the percentage of black pixels within the ROI
+        black_pixels = np.sum(roi < 45)
+        total_pixels = roi.size
+        if total_pixels == 0:
+            black_pixels_percentage = 0
+        else:
+            black_pixels_percentage = black_pixels / total_pixels
+
+        # If the percentage of black pixels is greater than 90%, then the ellipse is a pupil
+        if black_pixels_percentage > 0.9:
+            ellipses.append(ellipse)</pre
+        >
+      </div>
+
+      <p class="text">
+        Como resultado se pueden dar 3 opciones, la primera es que no se detecte ninguna elipse que cumpla con las
+        condiciones, en ese caso se procede a la detección del centro de la pupila basada en la heurística.
+      </p>
+
+      <p class="text">
+        La segunda opción es que se detecte una sola elipse que cumpla con las condiciones, en ese caso se toma el
+        centro de la elipse como el centro de la pupila.
+      </p>
+
+      <p class="text">
+        La tercera opción es que se detecten varias elipses que cumplan con las condiciones, en ese caso nos quedamos
+        con la elipse que tenga la mayor área. Esto se debe a que generalmente, cuando se detectan varias elipses,
+        muchas de estas se corresponden a elipses en la zona donde se ubican las pestañas, por lo que su área es mucho
+        menor a la de la pupila.
+      </p>
+
+      <div class="img2">
+        <img src="../images/paso-3.png" alt="Paso 3" />
+      </div>
+
+      <p class="text">
+        Si nos encontramos dentro de la segunda o tercer opción, usamos el centro de la elipse como estimación del
+        centro de la pupila. Finalmente, dibujamos la elipse en la imagen original con la función
+        <code class="code">cv2.ellipse</code> y la mostramos.
+      </p>
+
+      <div class="code-block">
+        <pre>
+def draw_ellipsis(image: np.ndarray, ellipsis):
+    if ellipsis is not None:
+        image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+        cv2.ellipse(image, ellipsis, (255, 0, 0), 2)
+
+    plt.imshow(image) 
+    plt.title("Detected Pupil")
+    plt.show()
+        </pre>
+      </div>
+
+      <h3 class="subsubtitle">2.1.3. Detección del centro de la pupila basado en heurística</h3>
+
+      <p class="text">Explicar la heuristica utilizada y agregar codigo y fotos.</p>
 
       <hr class="separator" />
 

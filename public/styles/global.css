@@ -51,6 +51,14 @@ a {
   color: inherit;
 }
 
+pre {
+  font-family: monospace;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 20px;
+  color: #353535;
+}
+
 input {
   border: none;
   outline: none;
@@ -88,7 +96,7 @@ select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c0bdff;
+  background: #6c6c6c;
   border-radius: 100px;
 }
 
