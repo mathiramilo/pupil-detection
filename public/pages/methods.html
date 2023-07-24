@@ -225,18 +225,18 @@ def draw_ellipsis(image: np.ndarray, ellipsis):
       </p>
 
       <p class="text">
-        1- Se invierte la imagen, para que la pupila quede blanca, y se normaliza para que el máximo valga 255.
+        1. Se invierte la imagen, para que la pupila quede blanca, y se normaliza para que el máximo valga 255.
       </p>
       <p class="text">
-        2- Aplica un filtro de erosión de CV2, con el fin de eliminar las pestañas, que son el único elemento igual de
+        2. Aplica un filtro de erosión de CV2, con el fin de eliminar las pestañas, que son el único elemento igual de
         oscuro que la pupila en la mayoría de la imagen.
       </p>
       <p class="text">
-        3- Se crean dos vectores con la sumatoria de cada columna y de cada fila, sumando sólo el valor de los píxeles
+        3. Se crean dos vectores con la sumatoria de cada columna y de cada fila, sumando sólo el valor de los píxeles
         mayores a 200.
       </p>
       <p class="text">
-        4- Se encuentra el máximo de cada vector, y se toma al índice de ambos máximos como las coordenadas X e Y de la
+        4. Se encuentra el máximo de cada vector, y se toma al índice de ambos máximos como las coordenadas X e Y de la
         pupila en la imagen.
       </p>
       <p class="text">
@@ -246,11 +246,33 @@ def draw_ellipsis(image: np.ndarray, ellipsis):
         precisión mínima alcanzable.
       </p>
       <p class="text">La siguiente gráfica considera los primeros 20 frames de cada video del dataset:</p>
-      <img src="../images/heuristica.png" width="300" height="300" />
+
+      <div class="img2">
+        <img src="../images/heuristica.png" width="300" height="300" />
+      </div>
 
       <p class="text">
         Como se puede ver, el uso de la heurística mejora considerablemente el rendimiento del algoritmo. Es cierto que,
         en algunos casos, el error es mayor que no utilizarla, pero para la mayoría obtiene una mejora.
+      </p>
+
+      <h3 class="subsubtitle">Referencias:</h3>
+
+      <p class="reference">
+        ExCuSe: Robust Pupil Detection in Real-World Scenarios:
+        <a
+          class="link"
+          href="https://www.hci.uni-tuebingen.de/assets/pdf/publications/WTCKWE092015.pdf"
+          target="_blank"
+          rel="noreferer"
+          >https://www.hci.uni-tuebingen.de/assets/pdf/publications/WTCKWE092015.pdf</a
+        >
+      </p>
+      <p class="reference">
+        In the Eye of the Beholder:
+        <a class="link" href="https://ieeexplore.ieee.org/abstract/document/4770110" target="_blank" rel="noreferer"
+          >https://ieeexplore.ieee.org/abstract/document/4770110</a
+        >
       </p>
 
       <hr class="separator" />

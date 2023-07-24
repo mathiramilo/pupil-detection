@@ -51,6 +51,13 @@ li {
   list-style: none;
 }
 
+pre {
+  font-family: monospace;
+  font-size: 1em;
+  line-height: 1.5;
+  color: #1d1d1d;
+}
+
 input {
   border: none;
   outline: none;
