@@ -1,6 +1,12 @@
-# Proyecto Final TIMAG
+# Pupil Detection | Proyecto Final TIMAG
 
-Detección de pupila en imágenes de ojos humanos mediante técnicas de procesamiento de imagenes en el lenguaje python.
+Pupil detection in human eye images using image processing techniques with python.
+
+## Website
+
+Visit the website of the project in the following URL:
+
+https://mathiasramilo.pages.fing.edu.uy/proyecto-final-timag/
 
 ## Usage
 
