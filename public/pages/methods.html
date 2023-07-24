@@ -26,7 +26,7 @@
           <a href="../index.html">Introducción</a>
           <a href="#" class="active">Método</a>
           <a href="./datasets.html">Dataset</a>
-          <a href="./experiments.html">Experimentos</a>
+          <a href="./results.html">Resultados</a>
           <a href="./conclusions.html">Conclusiones</a>
         </nav>
       </div>
@@ -218,34 +218,39 @@ def draw_ellipsis(image: np.ndarray, ellipsis):
 
       <h3 class="subsubtitle">2.1.3. Detección del centro de la pupila basado en heurística</h3>
 
-      <p class="text">Para los casos en los que no se puede estimar una elipse adecuada para la pupila, se utiliza una heurística como fallback.
-        La heurística se basa en que la pupila es aproximadamente simétrica sin importar el ángulo, y que es un elemento mucho más oscuro que la mayoría de la imagen. Su funcionamiento es el siguiente:
+      <p class="text">
+        Para los casos en los que no se puede estimar una elipse adecuada para la pupila, se utiliza una heurística como
+        fallback. La heurística se basa en que la pupila es aproximadamente simétrica sin importar el ángulo, y que es
+        un elemento mucho más oscuro que la mayoría de la imagen. Su funcionamiento es el siguiente:
       </p>
 
       <p class="text">
         1- Se invierte la imagen, para que la pupila quede blanca, y se normaliza para que el máximo valga 255.
       </p>
       <p class="text">
-        2- Aplica un filtro de erosión de CV2, con el fin de eliminar las pestañas, que son el único elemento igual de oscuro que la pupila en la mayoría de la imagen.
+        2- Aplica un filtro de erosión de CV2, con el fin de eliminar las pestañas, que son el único elemento igual de
+        oscuro que la pupila en la mayoría de la imagen.
       </p>
       <p class="text">
-        3- Se crean dos vectores con la sumatoria de cada columna y de cada fila, sumando sólo el valor de los píxeles mayores a 200.
+        3- Se crean dos vectores con la sumatoria de cada columna y de cada fila, sumando sólo el valor de los píxeles
+        mayores a 200.
       </p>
       <p class="text">
-        4- Se encuentra el máximo de cada vector, y se toma al índice de ambos máximos como las coordenadas X e Y de la pupila en la imagen.
+        4- Se encuentra el máximo de cada vector, y se toma al índice de ambos máximos como las coordenadas X e Y de la
+        pupila en la imagen.
       </p>
       <p class="text">
-        En la práctica, para obtener buen rendimiento hay que reducir la cantidad de pixeles a sumar. Por lo tanto se agrega un parámetro "Div" que efectivamente divide la resolución de la imagen (por ejemplo, para un valor Div de 2, se analiza un cuarto de los pixeles totales).
-        Esto no afecta mayormente al resultado final, pero sí limita la precisión mínima alcanzable. 
+        En la práctica, para obtener buen rendimiento hay que reducir la cantidad de pixeles a sumar. Por lo tanto se
+        agrega un parámetro "Div" que efectivamente divide la resolución de la imagen (por ejemplo, para un valor Div de
+        2, se analiza un cuarto de los pixeles totales). Esto no afecta mayormente al resultado final, pero sí limita la
+        precisión mínima alcanzable.
       </p>
-      <p class="text">
-        La siguiente gráfica considera los primeros 20 frames de cada video del dataset:
-      </p>
-      <img src="../images/heuristica.png" width="300" height="300"/>
+      <p class="text">La siguiente gráfica considera los primeros 20 frames de cada video del dataset:</p>
+      <img src="../images/heuristica.png" width="300" height="300" />
 
       <p class="text">
-        Como se puede ver, el uso de la heurística mejora considerablemente el rendimiento del algoritmo. Es cierto que, en algunos casos, el error es mayor que
-        no utilizarla, pero para la mayoría obtiene una mejora. 
+        Como se puede ver, el uso de la heurística mejora considerablemente el rendimiento del algoritmo. Es cierto que,
+        en algunos casos, el error es mayor que no utilizarla, pero para la mayoría obtiene una mejora.
       </p>
 
       <hr class="separator" />
