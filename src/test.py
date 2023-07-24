@@ -65,10 +65,11 @@ def process_subfolder(
 
         # uso 1999 frames nomas porque sub 1 video 4 solo tiene 1999 frames
         frames_errs = []
-        for frame in range(1, 6):
+        for frame in range(1, 1501):
             img = cv2.imread(
-                f"{subfolder_path}/{video_number}_frames/frame_{frame}.png"
+                f"{subfolder_path}/{video_number}_frames/frame_{frame}.png", 0
             )
+            print(f"Processing frame {frame} of {video_number}")
 
             x, y = ground_truth.iloc[frame - 1].values
             alg_errs = []
@@ -97,7 +98,7 @@ def process_subfolder(
     return results
 
 
-def test_folder(plots_dir: str, folder_path: str) -> None:
+def test_folder(csv_dir: str, plots_dir: str, folder_path: str) -> None:
     folder_name = Path(folder_path).stem
     algorithms = {
         "ExCuSe": ExCuSe,
@@ -105,16 +106,20 @@ def test_folder(plots_dir: str, folder_path: str) -> None:
     }
     results = process_subfolder(folder_path, list(algorithms.values()))
     results = np.array(results)
+    
+    df = pd.DataFrame(results, columns=algorithms.keys())
+    df.to_csv(f"{csv_dir}/{Path(folder_path).stem}.csv", index=False)
+    
     rand_errs = np.random.randint(0, 300, size=results.shape[0])
     plot_cumulative_error(
         [results[:,0], results[:,1], rand_errs],
         list(algorithms.keys()) + ["Random"],
-        plot_path=f"{plots_dir}/cumulative_error_folder{folder_name}.png",
+        plot_path=f"{plots_dir}/Cum_Err_folder{folder_name}.png",
         plot_title=f"Folder {folder_name}"
     )
 
 
-def test_dataset(plots_dir: str, dataset_path: str) -> None:
+def test_dataset(csv_dir: str, plots_dir: str, dataset_path: str) -> None:
     algorithms = {
         "ExCuSe": ExCuSe,
         "Dummy": dummy_method
@@ -136,7 +141,7 @@ def test_dataset(plots_dir: str, dataset_path: str) -> None:
     final_results = np.array(final_results)
     
     df = pd.DataFrame(final_results, columns=algorithms.keys())
-    df.to_csv(f"{plots_dir}/final_results.csv", index=False)
+    df.to_csv(f"{csv_dir}/final_results.csv", index=False)
     
     rand_errs = np.random.randint(0, 300, size=final_results.shape[0])
     plot_cumulative_error(

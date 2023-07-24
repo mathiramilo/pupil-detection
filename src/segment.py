@@ -149,9 +149,54 @@ def process_image(plots_dir: str, image_path: str):
     )
     plt.imsave(f"{plots_dir}/{Path(image_path).stem}.png", image)
 
+
+def sumatorias(image, div=10, debug=0):
+    image = ~image
+    ejeX = []
+    ejeY = []
+    x=0
+    y=0
+    while(x < len(image)):
+        suma = 0
+        while(y<len(image[0])):
+            valor = image[x,y]
+            if(valor > 200):
+                suma = suma + valor
+            elif(valor < -1):
+                suma = suma + 255-valor
+            y = y + div
+        ejeX.append(suma)
+        x = x + div
+        y = 0
+
+    while(y < len(image[0])):
+        suma = 0
+        while(x<len(image)):
+            valor = image[x,y]
+            if(valor > 200):
+                suma = suma + valor
+            elif(valor < -1):
+                suma = suma + 255-valor
+            x = x + div
+        ejeY.append(suma)
+        y = y + div
+        x = 0
+    i = 0
+    j = 0
+    if(debug == 1):
+        plt.figure()
+        plt.imshow(image,cmap='gray')
+        plt.figure()
+        plt.plot(ejeX)
+        plt.plot(ejeY)
+    coordX = ejeY.index(max(ejeY))*div
+    coordY = ejeX.index(max(ejeX))*div
+    return (coordX, coordY)
+
+
 def ExCuSe(img: str):
     pupil = find_pupil(img)
-    if pupil is None:
-        return None
-    _, center = pupil
-    return center
+    if pupil is not None:
+        return pupil[1]
+    else:
+        return sumatorias(img, 10)
