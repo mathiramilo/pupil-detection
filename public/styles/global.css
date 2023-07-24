@@ -88,7 +88,7 @@ select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c0bdff;
+  background: #5e5e5e;
   border-radius: 100px;
 }
 
