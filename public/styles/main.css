@@ -114,6 +114,10 @@ main {
   margin-bottom: 1.5em;
 }
 
+.text strong {
+  font-weight: 500;
+}
+
 .code {
   font-size: 1em;
   font-family: monospace;
@@ -157,6 +161,22 @@ main {
   margin-top: 0.5em;
   display: block;
   text-align: center;
+}
+
+.reference {
+  font-size: 0.9em;
+  font-weight: 400;
+  margin-bottom: 0.2em;
+}
+
+.link {
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--color-purple);
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 .separator {

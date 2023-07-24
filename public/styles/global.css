@@ -46,6 +46,11 @@ a {
   color: inherit;
 }
 
+ul,
+li {
+  list-style: none;
+}
+
 input {
   border: none;
   outline: none;

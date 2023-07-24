@@ -7,21 +7,21 @@
     <link rel="shortcut icon" href="../images/eye-logo.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="../styles/main.css" />
-</head>
+  </head>
 
-<body>
-  <header class="header-container">
-    <div class="header">
-      <p>Proyecto Final | TIMAG 2023</p>
+  <body>
+    <header class="header-container">
+      <div class="header">
+        <p>Proyecto Final | TIMAG 2023</p>
 
-      <div class="header-title">
-        <div class="header-title__logo">
-          <img src="../images/eye-logo.png" alt="Logo" />
+        <div class="header-title">
+          <div class="header-title__logo">
+            <img src="../images/eye-logo.png" alt="Logo" />
+          </div>
+          <div class="header-title__text">
+            <h1>Pupil Detector</h1>
+          </div>
         </div>
-        <div class="header-title__text">
-          <h1>Pupil Detector</h1>
-        </div>
-      </div>
 
         <nav>
           <a href="../index.html">Introducción</a>
@@ -33,51 +33,63 @@
       </div>
     </header>
 
-  <main>
-    <h2 class="title">Dataset</h2>
+    <main>
+      <h2 class="title">3. Dataset</h2>
 
-    <p class="text">
-      En la literatura sobre detección y segmentación de la pupila, hay varios conjuntos de datos disponibles que pueden
-      ser adecuados para afrontar el problema. Algunos de ellos son:
-    <ul>
-      <li><a
-          href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw">Labelled
-          Pupils in the Wild</a></li>
-      <li><a href="http://iris.di.ubi.pt/">UBIRIS</a></li>
-      <li><a href="https://paperswithcode.com/dataset/openeds">OpenEDS</h>
-      </li>
-    </ul>
+      <p class="text">
+        En la literatura sobre detección y segmentación de la pupila, hay varios conjuntos de datos disponibles que
+        pueden ser adecuados para afrontar el problema. Algunos de ellos son Labelled Pupils in the Wild, UBIRIS y
+        OpenEDS.
+      </p>
 
-    Existen varios factores a considerar, el tamaño del conjunto de datos, la diversidad de las imágenes, la calidad de
-    las anotaciones, entre otros.
-    Decidimos utilizar el dataset de Labelled Pupils in the Wild dado que cumple de buena manera con algunas de estas
-    razones:
+      <p class="text">
+        Existen varios factores a considerar, el tamaño del conjunto de datos, la diversidad de las imágenes, la calidad
+        de las anotaciones, entre otros. Decidimos utilizar el dataset de Labelled Pupils in the Wild dado que cumple de
+        buena manera con algunas de estas razones:
+      </p>
 
-    <ul>
-      <li>
-        <strong>Tamaño y diversidad</strong>: El dataset provee 66 videos de alta resolucion y alta velocidad (cada uno
-        contiene 95 frames por segundo) de 22 participantes en diferentes locaciones y condiciones de iluminación.
-      </li>
+      <ul>
+        <li class="text">
+          <strong>• Tamaño y diversidad</strong>: El dataset provee 66 videos de alta resolucion y alta velocidad (cada
+          uno contiene 95 frames por segundo) de 22 participantes en diferentes locaciones y condiciones de iluminación.
+        </li>
 
-      <li>
-        <strong>Anotaciones precisas</strong>: Para cada frame de los videos se dispone de las coordenadas <i>x</i> e
-        <i>y</i> de la posición de la pupila. Estas anotaciones fueron realizadas manualmente por un humano, lo que
-        asegura una buena precisión.
+        <li class="text">
+          <strong>• Anotaciones precisas</strong>: Para cada frame de los videos se dispone de las coordenadas
+          <i>x</i> e <i>y</i> de la posición de la pupila. Estas anotaciones fueron realizadas manualmente por un
+          humano, lo que asegura una buena precisión.
+        </li>
 
-      </li>
+        <li class="text">
+          <strong>• Relevancia del dominio</strong>: Las imágenes fueron tomadas en entornos de la vida cotidiana, lo
+          que aumenta su relevancia para aplicaciones prácticas de detección de pupila en entornos del mundo real.
+        </li>
+      </ul>
 
-      <li>
-        <strong>Relevancia del dominio</strong>: Las imágenes fueron tomadas en entornos de la vida cotidiana, lo que
-        aumenta su relevancia para aplicaciones prácticas de detección de pupila en entornos del mundo real.
-      </li>
-    </ul>
+      <h3 class="subsubtitle">Referencias:</h3>
 
-    A continuación dejamos un link al <it>paper</it> original del dataset, donde se puede encontrar información aún más
-    detallada.
-    <a href="https://arxiv.org/pdf/1511.05768.pdf">Link</a>
-    </p>
+      <p class="reference">
+        Labelled Pupils in the Wild Paper:
+        <a class="link" href="https://arxiv.org/pdf/1511.05768.pdf">https://arxiv.org/pdf/1511.05768.pdf</a>
+      </p>
+      <p class="reference">
+        Labelled Pupils in the Wild Dataset:
+        <a
+          class="link"
+          href="https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw"
+          >https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw</a
+        >
+      </p>
+      <p class="reference">
+        UBIRIS:
+        <a class="link" href="http://iris.di.ubi.pt/">http://iris.di.ubi.pt/</a>
+      </p>
+      <p class="reference">
+        OpenEDS:
+        <a class="link" href="https://paperswithcode.com/dataset/openeds">https://paperswithcode.com/dataset/openeds</a>
+      </p>
 
-    <hr class="separator" />
+      <hr class="separator" />
 
       <div class="main-navigation">
         <a class="mn-item" href="./methods.html">
@@ -91,15 +103,14 @@
       </div>
     </main>
 
-  <footer>
-    <div class="footer-logo">
-      <img src="../images/logo-fing.png" alt="Logo Fing" />
-    </div>
+    <footer>
+      <div class="footer-logo">
+        <img src="../images/logo-fing.png" alt="Logo Fing" />
+      </div>
 
-    <p class="footer-contributors">Guido Dinello | Mathias Ramilo | Agustin Tejera</p>
+      <p class="footer-contributors">Guido Dinello | Mathias Ramilo | Agustin Tejera</p>
 
-    <p class="footer-cr">TIMAG 2023</p>
-  </footer>
-</body>
-
+      <p class="footer-cr">TIMAG 2023</p>
+    </footer>
+  </body>
 </html>
