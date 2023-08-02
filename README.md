@@ -1,4 +1,4 @@
-# Pupil Detection | Proyecto Final TIMAG
+# Pupil Detection | TIMAG Final Project
 
 Pupil detection in human eye images using image processing techniques with python.
 
