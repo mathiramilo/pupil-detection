@@ -1,5 +1,5 @@
 ![logo-fing-udelar](https://github.com/mathiramilo/Pupil-Detection/assets/42822912/64d79044-a2d4-4ba5-bde0-44d66a8b0eb3)
-# Pupil Detection | TIMAG Final Project
+# Computer Image Processing Final Project - Pupil Detection
 
 Pupil detection in human eye images using image processing techniques with python.
 
