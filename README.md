@@ -5,7 +5,7 @@ Pupil detection in human eye images using image processing techniques with pytho
 
 ## Website
 
-Visit the website of the project in the following URL:
+Learn more about this project by visiting it's website in the following URL:
 
 https://mathiasramilo.pages.fing.edu.uy/proyecto-final-timag/
 
